@@ -26,6 +26,21 @@ public class layoutmanager : Singleton<layoutmanager>
 	
 	private Point mapSize;
 	
+	private Stack<Node> path;
+	
+	public Stack<Node> Path
+	{
+		get 
+		{
+			if(path == null)
+			{
+				GeneratePath();
+			}
+		
+			return new Stack<Node>(new Stack<Node>(path));
+		}
+	}
+	
 	public Dictionary<Point, TileScript> Tiles { get; set; }
 	
 	public float TileSize
@@ -102,14 +117,15 @@ public class layoutmanager : Singleton<layoutmanager>
 	
 	private void Spawn()
 	{
+		//set spawn point
 		spawn = new Point (1, 5);	
 		GameObject tmp = (GameObject)Instantiate(spawns, Tiles[spawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 		SpawnPortal = tmp.GetComponent<Portal>();
 		SpawnPortal.name = "teleporter-small_31";
 		
 		
-		
-		ending = new Point (12, 2);
+		//set end point
+		ending = new Point (15, 1);
 		Instantiate(endings, Tiles[ending].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 	}
 	
@@ -118,6 +134,10 @@ public class layoutmanager : Singleton<layoutmanager>
 		return position.x >= 0 && position.y >= 0 && position.x < mapSize.x && position.y < mapSize.y;
 	}
 	
+	public void GeneratePath()
+	{
+		path = AStar.GetPath(spawn, ending);
+	}
 	
 	
 }

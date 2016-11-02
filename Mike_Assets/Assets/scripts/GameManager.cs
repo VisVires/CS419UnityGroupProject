@@ -82,6 +82,7 @@ public class GameManager : Singleton<GameManager>
 	
 	private IEnumerator SpawnWave()
 	{
+		layoutmanager.Instance.GeneratePath();
 		int monsterIndex = Random.Range(0, 2);
 		
 		string type = string.Empty;
@@ -96,8 +97,8 @@ public class GameManager : Singleton<GameManager>
 				break;
 		}
 		
-		Pool.GetObject(type);
-		
+		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
+		monster.Spawn();
 		yield return new WaitForSeconds(2.5f);
 	}
 	
