@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}</ProjectGuid>
+    <ProjectGuid>{DAA1DDD3-BD5C-6D6C-21AF-1AB438FE3673}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,49 +45,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BoardManager.cs" />
-     <Compile Include="Assets\GameManager.cs" />
-     <Compile Include="Assets\GameMaster.cs" />
-     <Compile Include="Assets\Scripts\BoardManager.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\GameMaster.cs" />
-     <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\AStar\AStar.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\AStar\DebugTile.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\AStar\Debugger.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\AStar\Node.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\CameraMovement.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\GameManager1.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\Hover.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\ObjectPool.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\Point.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\Portal.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\Singleton.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\TileScript.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\TowerButton.cs" />
-     <Compile Include="Assets\Scripts\Mike&apos;s Scripts\layoutmanager.cs" />
-     <Compile Include="Assets\Scripts\PathFollower.cs" />
-     <Compile Include="Assets\Scripts\QuitOnClick.cs" />
-     <Compile Include="Assets\Scripts\SelectOnInput.cs" />
-     <Compile Include="Assets\Scripts\Wall.cs" />
-     <Compile Include="Assets\Scripts\ninja.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\ActiveStateToggler.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\ApplicationManager.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\ChangeColor.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\DragMe.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\DragPanel.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\DropMe.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\PanelManager.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\ResizePanel.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\ScrollDetailTexture.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\ShowSliderValue.cs" />
-     <Compile Include="Assets\Unity UI\Scripts\TiltWindow.cs" />
-     <Compile Include="Assets\ninja.cs" />
+     <Compile Include="Assets\Menu\Scripts\LoadSceneOnClick.cs" />
+     <Compile Include="Assets\Menu\Scripts\QuitOnClick.cs" />
+     <Compile Include="Assets\Menu\Scripts\SelectOnInput.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\ActiveStateToggler.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\ApplicationManager.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\ChangeColor.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\DragMe.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\DragPanel.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\DropMe.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\PanelManager.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\ResizePanel.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\ScrollDetailTexture.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\ShowSliderValue.cs" />
+     <Compile Include="Assets\Menu\Unity UI\Scripts\TiltWindow.cs" />
+     <Compile Include="Assets\Random Generated Level\Scripts\BoardManager.cs" />
+     <Compile Include="Assets\Random Generated Level\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Random Generated Level\Scripts\GameMaster.cs" />
+     <Compile Include="Assets\Random Generated Level\Scripts\ninja.cs" />
+     <Compile Include="Assets\scripts\AStar\AStar.cs" />
+     <Compile Include="Assets\scripts\AStar\DebugTile.cs" />
+     <Compile Include="Assets\scripts\AStar\Debugger.cs" />
+     <Compile Include="Assets\scripts\AStar\Node.cs" />
+     <Compile Include="Assets\scripts\CameraMovement.cs" />
+     <Compile Include="Assets\scripts\GameManager.cs" />
+     <Compile Include="Assets\scripts\Hover.cs" />
+     <Compile Include="Assets\scripts\Monster.cs" />
+     <Compile Include="Assets\scripts\ObjectPool.cs" />
+     <Compile Include="Assets\scripts\Point.cs" />
+     <Compile Include="Assets\scripts\Portal.cs" />
+     <Compile Include="Assets\scripts\Singleton.cs" />
+     <Compile Include="Assets\scripts\TileScript.cs" />
+     <Compile Include="Assets\scripts\TowerButton.cs" />
+     <Compile Include="Assets\scripts\layoutmanager.cs" />
+     <None Include="Assets\Menu\Resources\Level.txt" />
+     <None Include="Assets\Menu\Unity UI\Fonts\Jupiter\LICENSE.txt" />
+     <None Include="Assets\Menu\Unity UI\Textures and Sprites\SF UI\Background\LICENSE.txt" />
+     <None Include="Assets\Menu\Unity UI\Materials\UI-Default-No-Alpha.shader" />
      <None Include="Assets\Resources\Level.txt" />
-     <None Include="Assets\Unity UI\Fonts\Jupiter\LICENSE.txt" />
-     <None Include="Assets\Unity UI\Textures and Sprites\SF UI\Background\LICENSE.txt" />
-     <None Include="Assets\Unity UI\Materials\UI-Default-No-Alpha.shader" />
-     <None Include="Assets\Resources\Mike&apos;s Resources\Level.txt" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

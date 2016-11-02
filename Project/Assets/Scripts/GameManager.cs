@@ -1,64 +1,106 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
+public class GameManager : Singleton<GameManager> 
+{
+	public TowerButton ClickedBtn { get; set; }
 
-    using System.Collections.Generic;       //Allows us to use Lists. 
-
-    public class GameManager1 : MonoBehaviour
-    {
-
-        public static GameManager1 instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-        private BoardManager boardScript;                       //Store a reference to our BoardManager which will set up the level.
-        private int level = 1;                                  //Current level number, expressed in game as "Day 1".
-		//private GameMaster gm = GetComponent<GameMaster>(); 
-
-        //Awake is always called before any Start functions
-        void Awake()
-        {
-            //Check if instance already exists
-            if (instance == null)
-
-                //if not, set instance to this
-                instance = this;
-
-            //If instance already exists and it's not this:
-            else if (instance != this)
-
-                //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-                Destroy(gameObject);
-
-            //Sets this to not be destroyed when reloading scene
-            DontDestroyOnLoad(gameObject);
-
-            //Get a component reference to the attached BoardManager script
-            boardScript = GetComponent<BoardManager>();
-
-
-
-            //Call the InitGame function to initialize the first level 
-            InitGame();
-        }
-
-        //Initializes the game for each level.
-        void InitGame()
-        {	
-			//set score
-			//gm.Start();		
-			//enemies.clear ();
-            //Call the SetupScene function of the BoardManager script, pass it current level number.
-            boardScript.SetupScene(level);
-
-        }
-
-		void saveScore()
+	private int currency;
+	
+	[SerializeField]
+	private Text currencyTxt;
+	
+	public ObjectPool Pool { get; set; }
+	
+	public int Currency
+	{
+		get
 		{
-			//PlayerPrefs.SetInt ("Score", gameMaster.score);
+			return currency;
 		}
+		
+		set
+		{
+			this.currency = value;
+			this.currencyTxt.text = "<color=lime>$</color>" + value.ToString();
+		}
+	}
+	
+	
+	private void Awake()
+	{
+		Pool = GetComponent<ObjectPool>();
 
+	}
 
-        //Update is called every frame.
-        void Update()
-        {
+	// Use this for initialization
+	void Start () 
+	{
+		Currency = 420;
+	}
+	
+	// Update is called once per frame
+	void Update () 
+	{
+		HandleEscape();
+	}
+	
+	public void PickTower(TowerButton towerButton)
+	{
+		if (Currency >= towerButton.Price)
+		{
+			this.ClickedBtn = towerButton;
+			
+			Hover.Instance.Activate(towerButton.Sprite);
+		}
+	}
+	
+	public void BuyTower()
+	{
+		if (currency >= ClickedBtn.Price)
+		{
+			Currency -= ClickedBtn.Price;
+			
+			Hover.Instance.Deactivate();
+		}
+		
+	}
+	
+	private void HandleEscape()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Hover.Instance.Deactivate();
+		}
+	}
 
-        }
-    }
+	public void StartWave()
+	{
+			StartCoroutine(SpawnWave());
+	}	
+	
+	
+	private IEnumerator SpawnWave()
+	{
+		layoutmanager.Instance.GeneratePath();
+		int monsterIndex = Random.Range(0, 2);
+		
+		string type = string.Empty;
+		
+		switch(monsterIndex)
+		{
+			case 0:
+				type = "greenPlane";
+				break;
+			case 1: 
+				type = "grayPlane";
+				break;
+		}
+		
+		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
+		monster.Spawn();
+		yield return new WaitForSeconds(2.5f);
+	}
+	
+}
