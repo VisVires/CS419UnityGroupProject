@@ -177,30 +177,62 @@ namespace Completed
                     }
                 }
             }
-            print("Live Count " + count);
+            //print("Live Count " + count);
         }
+        void createTextFile()
+        {
+            System.IO.StreamWriter file = new System.IO.StreamWriter("test.txt");
+            for (int x = 0; x < rows; x++)
+            {
+                string rowx = "";
+                for (int y = 0; y < columns; y++)
+                {
+                    //set random floor tiles to gameObjects with parent being the board holder
+                    if (x == 0 || y == 0 || x == rows - 1 || y == columns - 1)
+                    {
+                        //write random number between 0 and wallObstacles.length to file
+                        rowx = string.Concat(rowx + "4");
+                    }
+                    else
+                    {
 
+                        rowx = string.Concat(rowx + (Random.Range(0, floorTiles.Length)).ToString());
+                    }
+                }
+                rowx = string.Concat(rowx, "-");
+                file.WriteLine(rowx);
+            }
+            file.Close();
+        }
+        
         //create floor of game board with random floor tiles
         void BoardSetup()
         {
+            
             boardHolder = new GameObject("Board").transform;
-
-            for (int x = -1; x < columns + 1; x++)
+            for (int x = -1; x <= columns + 1; x++)
             {
-                for (int y = -1; y < rows + 1; y++)
+                for (int y = -1; y <= rows + 1; y++)
                 {
                     //set random floor tiles to gameObjects with parent being the board holder
-                    GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-
+                    GameObject toInstantiate;
                     //create walls
-                    if (x == 0 || y == 0 || y == rows)
+                    if (x == -1 || y == -1 || x == columns + 1 || y == rows + 1)
                     {
+                        //write random number between 0 and wallObstacles.length to file
                         toInstantiate = wallObstacles[Random.Range(0, wallObstacles.Length)];
                     }
+                    //write random number between 1 and 4 to text file
+                    else
+                    {
+                        toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                        
+                    }
+                  
                     GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
                 }
-            }
+           }
         }
 
       
@@ -241,6 +273,7 @@ namespace Completed
             //create grid 
             GameOfLifeSim();
             //create floor
+            createTextFile();
             BoardSetup();
             //initialize grid and set to liveCells then set up gridpositions list
             InitializeList();
