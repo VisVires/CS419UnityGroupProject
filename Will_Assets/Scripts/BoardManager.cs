@@ -17,7 +17,8 @@ namespace Completed
         public GameObject[] wallObstacles;
 
         private Transform boardHolder;
-        private List<Vector3> gridPositions = new List<Vector3>();
+        //private List<Vector3> gridPositions = new List<Vector3>();
+        private List<Point> gridPositions = new List<Point>();
         private List<bool> liveCells = new List<bool>();
         private bool [,] gridPath = new bool[columns, rows];
         
@@ -43,7 +44,7 @@ namespace Completed
                     }
                 }
             }
-            //OutputGridToConsole();
+            
         }
 
         //create game of life grid
@@ -162,7 +163,8 @@ namespace Completed
                 for (int y = 0; y < rows; y++)
                 {
                     //create grid position list of vector3 elements
-                    gridPositions.Add(new Vector3(x, y, 0f));
+                    //gridPositions.Add(new Vector3(x, y, 0f));
+                    gridPositions.Add(new Point(x, y));
                     //if gridPath item is true set list value to true
                     if (gridPath[x,y] == true)
                     {
@@ -211,7 +213,12 @@ namespace Completed
             for (int x = 0; x < gridPositions.Count; x++)
             {
                 //get position
-                Vector3 position = gridPositions[x];
+                int i = gridPositions[x].x;
+                int j = gridPositions[x].y;
+                Vector3 position = new Vector3(i, j, 0f);
+
+                //Vector3 position = gridPositions[x];
+                //Point position = gridPositions[x];
                 //if cell in grid at position is dead then place obstacle
                 if (!liveCells[x])
                 {
