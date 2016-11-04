@@ -36,7 +36,7 @@ public class TileScript : MonoBehaviour
 	void Update () {
 	
 	}
-	
+
 	public void Setup(Point gridPos, Vector3 worldPos, Transform parent)
 	{
 		Walkable = true;
@@ -44,10 +44,16 @@ public class TileScript : MonoBehaviour
 		this.GridPosition = gridPos;
 		transform.position = worldPos;
 		transform.SetParent(parent);		
-		layoutmanager.Instance.Tiles.Add(gridPos, this);
+		Completed.BoardManager.Instance.Tiles.Add(gridPos, this);
 		
 	}
-	
+
+	public void unWalkable()
+	{
+		Walkable = false;
+		IsEmpty = false;
+	}
+
 	private void OnMouseOver()
 	{
 		
@@ -67,7 +73,7 @@ public class TileScript : MonoBehaviour
 			}
 		}
 	}
-	
+
 	private void OnMouseExit()
 	{
 		if (!Debugging)
@@ -75,19 +81,18 @@ public class TileScript : MonoBehaviour
 			ColorTile(Color.white);
 		}
 	}
-	
+
 	private void PlaceTower()
 	{
-		Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
+		//Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
 		
 		IsEmpty = false;
 		
 		ColorTile(Color.white);
-		GameManager.Instance.BuyTower();
+		//GameManager.Instance.BuyTower();
 		Walkable = false;
-
-		
 	}
+
 	
 	private void ColorTile(Color newColor)
 	{

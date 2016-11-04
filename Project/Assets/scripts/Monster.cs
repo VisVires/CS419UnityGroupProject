@@ -21,9 +21,9 @@ public class Monster : MonoBehaviour
 	
 	public void Spawn()
 	{
-		transform.position = layoutmanager.Instance.SpawnPortal.transform.position;
+		transform.position = Completed.BoardManager.Instance.SpawnPortal.transform.position;
 		
-		SetPath(layoutmanager.Instance.Path);
+		SetPath(Completed.BoardManager.Instance.Path);
 	}
 	
 	private void Move()

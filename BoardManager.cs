@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;        //so we can use lists
 using Random = UnityEngine.Random;      //Tells random to use unity random generator
 
 namespace Completed
 {
-    public class BoardManager : MonoBehaviour
+	public class BoardManager : Singleton<BoardManager>
     {
        
         public static int columns = 150;
         public static int rows = 50;
         int simulations = 7;
         float chanceCellIsOnPath = 0.40f;
-        public GameObject[] floorTiles;
+        //public GameObject[] floorTiles;
         public GameObject[] obstacleTiles;
-        public GameObject[] wallObstacles;
+        //public GameObject[] wallObstacles;
 
-        private Transform boardHolder;
-        private List<Vector3> gridPositions = new List<Vector3>();
+        //private Transform boardHolder;
+        //private List<Vector3> gridPositions = new List<Vector3>();
+        private List<Point> gridPositions = new List<Point>();
         private List<bool> liveCells = new List<bool>();
+		private List<Point> deadCells = new List<Point>();
         private bool [,] gridPath = new bool[columns, rows];
         
 
@@ -43,7 +46,7 @@ namespace Completed
                     }
                 }
             }
-            //OutputGridToConsole();
+            
         }
 
         //create game of life grid
@@ -162,62 +165,268 @@ namespace Completed
                 for (int y = 0; y < rows; y++)
                 {
                     //create grid position list of vector3 elements
-                    gridPositions.Add(new Vector3(x, y, 0f));
+                    //gridPositions.Add(new Vector3(x, y, 0f));
+                    //gridPositions.Add(new Point(x, y));
                     //if gridPath item is true set list value to true
                     if (gridPath[x,y] == true)
                     {
                         liveCells.Add(true);
-                        count = count + 1;
+                        
                     }
                     else
                     {
                         liveCells.Add(false);
+						deadCells.Add(new Point(x, y));
+						count = count + 1;
                     }
                 }
             }
             print("Live Count " + count);
         }
 
+        void createTextFile()
+        {
+            System.IO.StreamWriter file = new System.IO.StreamWriter("Level.txt");
+            for (int x = 0; x < rows; x++)
+            {
+                string rowx = "";
+                for (int y = 0; y < columns; y++)
+                {
+                    //set random floor tiles to gameObjects with parent being the board holder
+                    if (x == 0 || y == 0 || x == rows - 1 || y == columns - 1)
+                    {
+                        //write random number between 0 and wallObstacles.length to file
+                        rowx = string.Concat(rowx + "4");
+                    }
+                    else
+                    {
+
+                        rowx = string.Concat(rowx + (Random.Range(0, 3)).ToString());
+                    }
+                }
+                rowx = string.Concat(rowx, "-");
+                file.WriteLine(rowx);
+            }
+            file.Close();
+        }
+
+
+		//read text file
+		private string[] ReadLevelText()
+		{
+			//save data from file to binddata
+			TextAsset bindData = Resources.Load("Level") as TextAsset;
+			//replace newLine characters with an empty string
+			string data = bindData.text.Replace(Environment.NewLine, string.Empty);
+			//split the data into an array using the '-' delimiter
+			return data.Split('-');
+		}
+        
+
+
+
+		//creat dictionary of TileScript each with the key coordinates 
+		public Dictionary<Point, TileScript> Tiles { get; set; }
+
+		//holds maximum x and y coordinates
+		private Point mapSize;
+
+		//Camera Movement Variable
+		[SerializeField]
+		private CameraMovement cameraMovement;
+
+		//create spawn portal object
+		public Portal SpawnPortal { get; set; }
+
+		//coordinates for spawn point
+		private Point spawn;
+
+		//coordinates fo end point
+		private Point ending;
+
+		//add spawns object
+		[SerializeField]
+		private GameObject spawns;
+
+		//add ending object
+		[SerializeField]
+		private GameObject endings;
+		//Transform tool is map
+		[SerializeField]
+		private Transform map;
+
+		//prefabs of tiles for floor
+		[SerializeField]
+		private GameObject[] tilePrefabs;
+
+		//returns width of the box of a sprite
+		public float TileSize
+		{
+			get {return tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
+		}
+
+
+		private void CreateLevel()
+		{
+			//create dictionary to hold map coordinates and TileScript
+			Tiles = new Dictionary<Point, TileScript>();
+
+			//read level from file to mapData array
+			string[] mapData = ReadLevelText();
+
+			//set map size to the size of the max x and y coordinates of the graph
+			mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
+
+			//set mapX (number of columns) by changing string to char array and taking length
+			int mapX = mapData[0].ToCharArray().Length;
+			//set mapY (number of rows) to length of mapData array
+			int mapY = mapData.Length;
+
+			//set maxtile to (0,0,0)
+			Vector3 maxTile = Vector3.zero;
+
+			//calculate start point, top left corner
+			Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
+
+			//for each row
+			for (int y = 0; y < mapY - 1; y++)
+			{
+				//separate each row into individual characters
+				char[] newTiles = mapData[y].ToCharArray();
+
+				//for each column
+				for (int x = 0; x < mapX - 1; x++)
+				{
+					//place tile on map
+					PlaceTile(newTiles[x].ToString(),x,y, worldStart);
+				}
+			}
+
+			//set maxTile to the tile at the bottom corner of the map
+			//maxTile = Tiles[ new Point (mapX - 1, mapY - 1)].transform.position;
+
+			//set limit of camera movement to vector3 0,0,0 plus 
+			//cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+
+			//Spawn();
+		}
+
+
+		//function to place tile on map
+		private void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
+		{
+			//cast tile to tileIndex
+			int tileIndex = int.Parse(tileType);
+
+			//create new tile as tileIndex
+			TileScript newTile = Instantiate(tilePrefabs[tileIndex]).GetComponent<TileScript>();
+			Point next = new Point (x, y);
+			Vector3 worldSpot = new Vector3 ((worldStart.x + (TileSize * x)), (worldStart.y - (TileSize * y)),0);
+
+			newTile.Setup (next, worldSpot, map);		
+
+			//set position of tile at point x,y in the world at the vector3 position (worldstart + x, worldstart + y, 0), making the Transform map the parent
+		}
+
+		//place spawn point on map
+		private void Spawn()
+		{
+			//set spawn point
+			spawn = new Point (1, 5);
+
+			//place spawn point sprite on map
+			GameObject tmp = (GameObject)Instantiate(spawns, Tiles[spawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+
+			//initialize portal
+			SpawnPortal = tmp.GetComponent<Portal>();
+			SpawnPortal.name = "teleporter-small_31";
+
+
+			//set ending spawn point
+			ending = new Point (15, 1);
+
+			//place ending spawn point on map
+			Instantiate(endings, Tiles[ending].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+		}
+
+
+		public bool Inbounds(Point position)
+		{
+			return position.x >= 0 && position.y >= 0 && position.x < mapSize.x && position.y < mapSize.y;
+		}
+
+		private void addObstacles(){
+			int deadCount = 0;
+			for (int x = 0; x < deadCells.Count; x++)
+			{
+				print ("Tiles: " + x);
+				if (Tiles.ContainsKey(deadCells[x])) 
+				{
+					deadCount++;
+					GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
+					Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
+				
+				}
+			}
+			print ("DeadCells: " + deadCount);
+		}
+
+
         //create floor of game board with random floor tiles
         void BoardSetup()
         {
-            boardHolder = new GameObject("Board").transform;
-
-            for (int x = -1; x < columns + 1; x++)
+            
+            /*boardHolder = new GameObject("Board").transform;
+            for (int x = -1; x <= columns + 1; x++)
             {
-                for (int y = -1; y < rows + 1; y++)
+                for (int y = -1; y <= rows + 1; y++)
                 {
                     //set random floor tiles to gameObjects with parent being the board holder
-                    GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-
+                    GameObject toInstantiate;
                     //create walls
-                    if (x == 0 || y == 0 || y == rows)
+                    if (x == -1 || y == -1 || x == columns + 1 || y == rows + 1)
                     {
+                        //write random number between 0 and wallObstacles.length to file
                         toInstantiate = wallObstacles[Random.Range(0, wallObstacles.Length)];
                     }
+                    //write random number between 1 and 4 to text file
+                    else
+                    {
+                        toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+                        
+                    }
+                  
                     GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);
                 }
-            }
+           }*/
+			//CreateLevel ();
         }
-
+			
       
         //add random object to boardholder as obstacles
         void LayoutObject(GameObject[] tileArray)
         {
             int count = 0;
             int liveCount = 0;
+
             //for each item in grid positions list
             for (int x = 0; x < gridPositions.Count; x++)
             {
                 //get position
-                Vector3 position = gridPositions[x];
+                int i = gridPositions[x].x;
+                int j = gridPositions[x].y;
+                Vector3 pos = new Vector3(i, j, 0f);
+
+
+                //Vector3 position = gridPositions[x];
+                //Point pos = gridPositions[x];
                 //if cell in grid at position is dead then place obstacle
                 if (!liveCells[x])
                 {
                     liveCount = liveCount + 1;
                     GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-                    Instantiate(tileChoice, position, Quaternion.identity);
+                    Instantiate(tileChoice, pos, Quaternion.identity);
                 }
                 else
                 {
@@ -229,16 +438,27 @@ namespace Completed
         }
 
 
-        public void SetupScene(int level)
+		void Start(){
+			GameOfLifeSim ();
+			createTextFile ();
+			CreateLevel ();
+			InitializeList ();
+			addObstacles ();
+			//LayoutObject (obstacleTiles);		
+		}
+
+        /*public void SetupScene(int level)
         {
             //create grid 
             GameOfLifeSim();
             //create floor
-            BoardSetup();
+            createTextFile();
+            //BoardSetup();
+			CreateLevel();
             //initialize grid and set to liveCells then set up gridpositions list
-            InitializeList();
+            //InitializeList();
             //add obstacles
-            LayoutObject(obstacleTiles);
-        }
+            //LayoutObject(obstacleTiles);
+        }*/
     }
 }

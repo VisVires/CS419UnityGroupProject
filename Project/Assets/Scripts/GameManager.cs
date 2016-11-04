@@ -83,7 +83,7 @@ public class GameManager : Singleton<GameManager>
 	
 	private IEnumerator SpawnWave()
 	{
-		layoutmanager.Instance.GeneratePath();
+		Completed.BoardManager.Instance.GeneratePath();
 		int monsterIndex = Random.Range(0, 2);
 		
 		string type = string.Empty;
