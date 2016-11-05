@@ -9,7 +9,7 @@ namespace Completed
 	public class BoardManager : Singleton<BoardManager>
     {
        
-        public static int columns = 75;
+        public static int columns = 150;
         public static int rows = 50;
         int simulations = 7;
 
@@ -413,12 +413,20 @@ namespace Completed
 
 		void Start(){
 
-			GameOfLifeSim ();
+			//create randomized board text file
 			createTextFile ();
+			//create level from text file file
 			CreateLevel ();
-			InitializeList ();
-			addObstacles ();
 
+			while (path == null) {
+				//run game of life simulations
+				GameOfLifeSim ();
+				//create list of dead cells
+				InitializeList ();
+				//add obstacles to places with dead cells
+				addObstacles ();
+				GeneratePath ();
+			}
 		}
 
 		void Update () {

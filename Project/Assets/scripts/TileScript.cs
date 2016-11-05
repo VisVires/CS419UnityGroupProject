@@ -34,7 +34,7 @@ public class TileScript : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 
 	public void Setup(Point gridPos, Vector3 worldPos, Transform parent)

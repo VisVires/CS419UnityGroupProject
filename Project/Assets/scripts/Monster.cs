@@ -17,6 +17,7 @@ public class Monster : MonoBehaviour
 	private void Update()
 	{
 		Move();
+		transform.localScale = new Vector3 (5, 5, 5);
 	}
 	
 	public void Spawn()
