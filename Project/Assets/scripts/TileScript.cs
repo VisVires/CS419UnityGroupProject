@@ -84,12 +84,12 @@ public class TileScript : MonoBehaviour
 
 	private void PlaceTower()
 	{
-		//Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
+		Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
 		
 		IsEmpty = false;
 		
 		ColorTile(Color.white);
-		//GameManager.Instance.BuyTower();
+		GameManager.Instance.BuyTower();
 		Walkable = false;
 	}
 
