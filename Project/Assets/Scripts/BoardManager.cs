@@ -9,7 +9,7 @@ namespace Completed
 	public class BoardManager : Singleton<BoardManager>
     {
        
-        public static int columns = 150;
+        public static int columns = 75;
         public static int rows = 50;
         int simulations = 7;
 
@@ -245,7 +245,7 @@ namespace Completed
         void createTextFile()
         {
 			//open file stream object
-            System.IO.StreamWriter file = new System.IO.StreamWriter("Level.txt");
+            System.IO.StreamWriter file = new System.IO.StreamWriter("Assets/Resources/Level.txt");
             for (int x = 0; x < rows; x++)
             {
                 string rowx = "";
@@ -346,6 +346,9 @@ namespace Completed
 
 			//set position of tile at point x,y in the world at the vector3 position (worldstart + x, worldstart + y, 0), making the Transform map the parent
 			newTile.Setup (next, worldSpot, map);		
+			if (tileIndex == (tilePrefabs.Length)) {
+				newTile.Walkable = false;
+			}
 		}
 
 		//place spawn point on map
@@ -362,6 +365,7 @@ namespace Completed
 			SpawnPortal.name = "teleporter-small_31";
 
 
+
 			//set ending spawn point
 			ending = new Point (mapX - 5, mapY - rows + 10);
 
@@ -374,15 +378,13 @@ namespace Completed
 		//sets point to inbounds
 		public bool Inbounds(Point position)
 		{
-			return position.x >= 0 && position.y >= 0 && position.x < mapSize.x && position.y < mapSize.y;
+			return position.x >= 1 && position.y >= 1 && position.x < mapSize.x - 1  && position.y < mapSize.y - 1;
 		}
 
 
 		//add obstacles to map
 		private void addObstacles()
 		{
-			//debug count dead cells
-			//int deadCount = 0;
 			//for each  dead tile
 			for (int x = 0; x < deadCells.Count; x++)
 			{
@@ -390,13 +392,14 @@ namespace Completed
 				//if the tiles object contains the point as key
 				if (Tiles.ContainsKey(deadCells[x])) 
 				{
-					//deadCount++;
-					//place random obstacle tile
-					GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
-					Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
-					//set tile as unwalkable
-					Tiles [deadCells[x]].Walkable = false;
-					//Tiles [deadCells [x]].IsEmpty = false;
+					if(deadCells[x] != ending && deadCells[x] != spawn){
+						//place random obstacle tile
+						GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
+						Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
+						//set tile as unwalkable
+						Tiles [deadCells[x]].Walkable = false;
+						//Tiles [deadCells [x]].IsEmpty = false;
+					}
 				}
 			}
 			//print ("DeadCells: " + deadCount);
