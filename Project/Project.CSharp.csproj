@@ -86,14 +86,13 @@
     <Compile Include="Assets\Menu\Unity UI\Scripts\ScrollDetailTexture.cs" />
     <Compile Include="Assets\Menu\Unity UI\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Menu\Unity UI\Scripts\TiltWindow.cs" />
-    <Compile Include="Assets\Random Generated Level\Scripts\BoardManager.cs" />
-    <Compile Include="Assets\Random Generated Level\Scripts\GameManager.cs" />
     <Compile Include="Assets\Random Generated Level\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Random Generated Level\Scripts\ninja.cs" />
     <Compile Include="Assets\Scripts\AStar\AStar.cs" />
     <Compile Include="Assets\Scripts\AStar\DebugTile.cs" />
     <Compile Include="Assets\Scripts\AStar\Debugger.cs" />
     <Compile Include="Assets\Scripts\AStar\Node.cs" />
+    <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Hover.cs" />
