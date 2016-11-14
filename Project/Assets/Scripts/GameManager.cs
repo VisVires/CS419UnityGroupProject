@@ -84,10 +84,10 @@ public class GameManager : Singleton<GameManager>
 	private IEnumerator SpawnWave()
 	{
 		Completed.BoardManager.Instance.GeneratePath();
-		int monsterIndex = Random.Range(0, 2);
+		int monsterIndex = Random.Range(0, 3);
 		
 		string type = string.Empty;
-		
+		print (monsterIndex);
 		switch(monsterIndex)
 		{
 			case 0:
@@ -95,6 +95,9 @@ public class GameManager : Singleton<GameManager>
 				break;
 			case 1: 
 				type = "grayPlane";
+				break;
+			case 2: 
+				type = "ninjaEnemy";
 				break;
 		}
 		

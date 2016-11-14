@@ -45,6 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Health\Scripts\Bar.cs" />
+     <Compile Include="Assets\Health\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Health\Scripts\Health.cs" />
+     <Compile Include="Assets\Health\Scripts\Stat.cs" />
      <Compile Include="Assets\Menu\Scripts\LoadSceneOnClick.cs" />
      <Compile Include="Assets\Menu\Scripts\QuitOnClick.cs" />
      <Compile Include="Assets\Menu\Scripts\SelectOnInput.cs" />

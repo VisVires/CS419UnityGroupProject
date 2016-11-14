@@ -393,17 +393,38 @@ namespace Completed
 				if (Tiles.ContainsKey(deadCells[x])) 
 				{
 					if(deadCells[x] != ending && deadCells[x] != spawn){
-						//place random obstacle tile
-						GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
-						Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
-						//set tile as unwalkable
-						Tiles [deadCells[x]].Walkable = false;
-						//Tiles [deadCells [x]].IsEmpty = false;
+						if(!genSpawn(deadCells[x]) && !genEnding(deadCells[x])){ 
+							//place random obstacle tile
+							GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
+							Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
+							//set tile as unwalkable
+							Tiles [deadCells[x]].Walkable = false;
+							//Tiles [deadCells [x]].IsEmpty = false;
+						}
 					}
 				}
 			}
 			//print ("DeadCells: " + deadCount);
 		}
+
+		bool genSpawn(Point pos){
+
+			return((checkRange(pos.x, spawn.x - 5, spawn.x + 5) && checkRange(pos.y, spawn.y - 5, spawn.y + 5)));
+		}
+
+
+		bool genEnding(Point pos){
+
+			return((checkRange(pos.x, ending.x - 5, ending.x + 5) && checkRange(pos.y, ending.y - 5, ending.y + 5)));	
+		} 
+
+
+		bool checkRange(int pos, int bottom, int top){
+
+			return(pos >= bottom && pos <= top);
+		}
+
+
 
 		//call A* Algorithm for path
 		public void GeneratePath()
