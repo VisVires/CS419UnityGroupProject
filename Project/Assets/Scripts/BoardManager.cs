@@ -16,7 +16,7 @@ namespace Completed
 		private int mapX;
 		private int mapY;
 
-        float chanceCellIsOnPath = 0.40f;
+        float chanceCellIsOnPath = 0.42f;
         //public GameObject[] floorTiles;
         public GameObject[] obstacleTiles;
         //public GameObject[] wallObstacles;
