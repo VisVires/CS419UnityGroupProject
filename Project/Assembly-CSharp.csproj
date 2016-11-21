@@ -79,8 +79,8 @@
      <Compile Include="Assets\Scripts\Portal.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\TileScript.cs" />
+     <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\TowerButton.cs" />
-     <Compile Include="Assets\Scripts\layoutmanager.cs" />
      <None Include="Assets\Menu\Resources\Level.txt" />
      <None Include="Assets\Menu\Unity UI\Fonts\Jupiter\LICENSE.txt" />
      <None Include="Assets\Menu\Unity UI\Textures and Sprites\SF UI\Background\LICENSE.txt" />

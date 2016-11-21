@@ -6,7 +6,7 @@ public class TileScript : MonoBehaviour
 	
 	public Point GridPosition { get; private set; }
 	
-	public bool IsEmpty { get; private set; }
+	public bool IsEmpty { get; set; }
 	
 	private Color32 fullColor = new Color32(255, 118, 118, 255);
 	
@@ -15,7 +15,7 @@ public class TileScript : MonoBehaviour
 	private SpriteRenderer spriteRenderer;
 	
 	public bool Walkable { get; set; }
-	
+	public bool IsTower { get; set; }
 	public bool Debugging { get; set; }
 	
 	public Vector2 WorldPosition
@@ -34,13 +34,14 @@ public class TileScript : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        transform.localScale = new Vector3(2, 2, 2);
+        transform.localScale = new Vector3(1, 1, 0);
     }
 
 	public void Setup(Point gridPos, Vector3 worldPos, Transform parent)
 	{
 		Walkable = true;
 		IsEmpty = true;
+		IsTower = false;
 		this.GridPosition = gridPos;
 		transform.position = worldPos;
 		transform.SetParent(parent);		
@@ -85,14 +86,17 @@ public class TileScript : MonoBehaviour
 	private void PlaceTower()
 	{
 		Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
-		
 		IsEmpty = false;
-		
 		ColorTile(Color.white);
 		GameManager.Instance.BuyTower();
 		Walkable = false;
+		IsTower = true;
 	}
 
+	public static void IgnoreLayerCollision(){
+		
+	
+	}
 	
 	private void ColorTile(Color newColor)
 	{

@@ -19,7 +19,7 @@ namespace Completed
         float chanceCellIsOnPath = 0.42f;
         //public GameObject[] floorTiles;
         public GameObject[] obstacleTiles;
-        //public GameObject[] wallObstacles;
+        public GameObject[] wallObstacles;
 
 		//creat dictionary of TileScript each with the key coordinates 
 		public Dictionary<Point, TileScript> Tiles { get; set; }
@@ -80,6 +80,7 @@ namespace Completed
         //private List<Vector3> gridPositions = new List<Vector3>();
         private List<Point> gridPositions = new List<Point>();
         private List<bool> liveCells = new List<bool>();
+		private List<Point> edgeCells = new List<Point> ();
 		private List<Point> deadCells = new List<Point>();
         private bool [,] gridPath = new bool[columns, rows];
         
@@ -323,11 +324,13 @@ namespace Completed
 				}
 			}
 
+			//Point max = new Point (mapX - 1, mapY - 1);
+
 			//set maxTile to the tile at the bottom corner of the map
-			//maxTile = Tiles[ new Point (mapX - 1, mapY - 1)].transform.position;
+			//maxTile = Tiles.TryGetValue(bottomCorner);
 
 			//set limit of camera movement to vector3 0,0,0 plus 
-			//cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+			//cameraMovement.SetLimits(new Vector3(max.x + TileSize, max.y - TileSize));
 
 			Spawn();
 		}
@@ -346,8 +349,8 @@ namespace Completed
 
 			//set position of tile at point x,y in the world at the vector3 position (worldstart + x, worldstart + y, 0), making the Transform map the parent
 			newTile.Setup (next, worldSpot, map);		
-			if (tileIndex == (tilePrefabs.Length)) {
-				newTile.Walkable = false;
+			if (tileIndex == (tilePrefabs.Length - 1)) {
+				edgeCells.Add (next);
 			}
 		}
 
@@ -392,20 +395,35 @@ namespace Completed
 				//if the tiles object contains the point as key
 				if (Tiles.ContainsKey(deadCells[x])) 
 				{
-					if(deadCells[x] != ending && deadCells[x] != spawn){
+					if(deadCells[x] != ending && deadCells[x] != spawn && Tiles[deadCells[x]].Walkable == true){
 						if(!genSpawn(deadCells[x]) && !genEnding(deadCells[x])){ 
 							//place random obstacle tile
 							GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
 							Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
 							//set tile as unwalkable
 							Tiles [deadCells[x]].Walkable = false;
-							//Tiles [deadCells [x]].IsEmpty = false;
+							Tiles [deadCells[x]].IsEmpty = false;
 						}
 					}
 				}
 			}
 			//print ("DeadCells: " + deadCount);
 		}
+
+		//sets tiles on edge as unwalkable and add custom wall tile
+		private void outOfBounds()
+		{
+			for (int x = 0; x < edgeCells.Count; x++) {
+				//if the tiles object contains the point as key
+				if (Tiles.ContainsKey (edgeCells[x])) {
+					GameObject tileChoice = wallObstacles[Random.Range (0, wallObstacles.Length)];
+					Instantiate (tileChoice, Tiles [edgeCells[x]].WorldPosition, Quaternion.identity);
+					Tiles [edgeCells[x]].Walkable = false;
+					Tiles [edgeCells[x]].IsEmpty = false;
+				}
+			}
+		}
+
 
 		bool genSpawn(Point pos){
 
@@ -444,8 +462,10 @@ namespace Completed
 				GameOfLifeSim ();
 				//create list of dead cells
 				InitializeList ();
-				//add obstacles to places with dead cells
+				//add obstacles to places with dead cells and edge cells
+				outOfBounds ();
 				addObstacles ();
+
 				GeneratePath ();
 			}
 		}

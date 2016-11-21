@@ -17,7 +17,8 @@ public class Monster : MonoBehaviour
 	private void Update()
 	{
 		Move();
-		transform.localScale = new Vector3 (5, 5, 5);
+		Physics2D.IgnoreLayerCollision (8, 9);
+		transform.localScale = new Vector3 (4, 4, 0);
 	}
 	
 	public void Spawn()
