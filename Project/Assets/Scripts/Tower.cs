@@ -9,7 +9,7 @@ public class Tower : MonoBehaviour {
 	public float targetRange = 10.0f;
 	private List<GameObject> enemysInRange = new List<GameObject>();
 	public GameObject missile;
-	public float rateOfFire = 1.0f;
+	public float rateOfFire = 0.5f;
 	private bool allowShoot = true;
 
 
@@ -46,23 +46,17 @@ public class Tower : MonoBehaviour {
 			Quaternion targetRotation = Quaternion.AngleAxis (angle, Vector3.forward);
 			transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
 			if (allowShoot) {
-				fireProjectile ();
-			}
+				StartCoroutine (fireProjectile ());
+			} 
 		}
-
 	}
 
-	void fireProjectile(){
+	IEnumerator fireProjectile(){
 		allowShoot = false;
 		GameObject bullet;
 		bullet = (Instantiate (missile, transform.position, transform.rotation)) as GameObject;
 		bullet.GetComponent<Projectile> ().TargetPosition = currentEnemy.transform.position;
-		wait ();
-		allowShoot = true;
-	}
-
-	IEnumerator wait(){
 		yield return new WaitForSeconds (rateOfFire);
-
+		allowShoot = true;
 	}
 }
