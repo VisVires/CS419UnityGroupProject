@@ -405,20 +405,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de46e68a34c3740f9b32322caea9c3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleTiles:
+  grassObstacleTiles:
   - {fileID: 1000012002120112, guid: a54584e8abb96a344b3da1b9d46bbac0, type: 2}
-  wallObstacles:
+  desertObstacleTiles:
+  - {fileID: 1000010539303838, guid: 5a8388011bf424440841197f11d6e241, type: 2}
+  grassWallObstacles:
   - {fileID: 1000012644813116, guid: c9ae9e1719eeea544a7f9d7a6d9cd01f, type: 2}
+  desertWallObstacles:
+  - {fileID: 1000012896345200, guid: f31dbd7ec2ed99148a5d1ed7a6eb0ec1, type: 2}
   cameraMovement: {fileID: 1693652371}
   spawns: {fileID: 1000011932625392, guid: 994f44e8b3f48ea49a2ac31fc360483b, type: 2}
   endings: {fileID: 1000011932625392, guid: 994f44e8b3f48ea49a2ac31fc360483b, type: 2}
   map: {fileID: 814870507}
-  tilePrefabs:
+  grassFloorPrefabs:
   - {fileID: 1000011574951696, guid: bf37b1e08cbd30243b97c2044b733ea7, type: 2}
   - {fileID: 1000010331964304, guid: dc29a4640f52d864db2e89a3b2ae7306, type: 2}
   - {fileID: 1000012230325554, guid: 05da46c5911f32d4899ae85018f7906a, type: 2}
   - {fileID: 1000010042772074, guid: 8b67cfef5eb43fe4d82a74388f2f688c, type: 2}
   - {fileID: 1000010042772074, guid: 8b67cfef5eb43fe4d82a74388f2f688c, type: 2}
+  floorPrefabs:
+  - {fileID: 1000011286420078, guid: cbd3ee10c7c0cda439f89e7ab04134a4, type: 2}
+  - {fileID: 1000012956887010, guid: 8ab5f8d9ca5f98242a079ef775cb013d, type: 2}
+  - {fileID: 1000010307517988, guid: cbcbbedb616634849a5c68de962e1142, type: 2}
+  - {fileID: 1000010336639862, guid: ec64140f2ef2ef046b2f5aca0ecd26e8, type: 2}
+  - {fileID: 1000012429771564, guid: 071fb45f3ecd29244a5e65c10311d9b1, type: 2}
 --- !u!4 &715233965
 Transform:
   m_ObjectHideFlags: 0
@@ -1225,7 +1235,6 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 23122f44555f70e42a28f0bf9e9e4dfa, type: 2}
-  m_RootGameObject: {fileID: 1693652365}
   m_IsPrefabParent: 0
 --- !u!1 &2037217855
 GameObject:

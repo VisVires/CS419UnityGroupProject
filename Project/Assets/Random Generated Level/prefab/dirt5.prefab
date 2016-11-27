@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011046006876}
   - 212: {fileID: 212000011991552468}
+  - 114: {fileID: 114000013323390654}
+  - 61: {fileID: 61000013501019060}
   m_Layer: 8
   m_Name: dirt5
   m_TagString: Untagged
@@ -40,6 +42,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &61000013501019060
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012429771564}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+--- !u!114 &114000013323390654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012429771564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bee1254ecbd3714fa1a1550eaace44b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000011991552468
 SpriteRenderer:
   m_ObjectHideFlags: 1
