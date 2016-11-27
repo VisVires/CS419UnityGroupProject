@@ -18,9 +18,11 @@ public class Tower : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		GameObject currentMonster;
 		if (col.gameObject.name == "greenPlane") {
-			print("Enter");
-			currentEnemy = col.gameObject.transform;
+			//print("Enter");
 			currentMonster = col.gameObject;
+			if (currentEnemy == null && enemysInRange.Count == 0) {
+				currentEnemy = col.gameObject.transform;
+			}
 			enemysInRange.Add(currentMonster);
 		}
 	}
@@ -29,10 +31,15 @@ public class Tower : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D col){
 		GameObject currentMonster;
 		if (col.gameObject.name == "greenPlane") {
-			print("Exit");
-			currentEnemy = null;
+			//print("Exit");
 			currentMonster = col.gameObject;
 			enemysInRange.Remove (currentMonster);
+			if (enemysInRange.Count == 0) {
+				currentEnemy = null;
+			} 
+			else {
+				currentEnemy = enemysInRange [0].transform;
+			}
 		}
 	}
 
