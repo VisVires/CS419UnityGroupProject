@@ -84,21 +84,21 @@ public class GameManager : Singleton<GameManager>
 	private IEnumerator SpawnWave()
 	{
 		Completed.BoardManager.Instance.GeneratePath();
-		int monsterIndex = Random.Range(0, 0);
+		int monsterIndex = Random.Range(0, 3);
 		
 		string type = string.Empty;
 		//print (monsterIndex);
 		switch(monsterIndex)
 		{
 			case 0:
+				type = "Ninja";
+				break;
+			case 1: 
 				type = "Zombie";
 				break;
-			/*case 1: 
-				type = "grayPlane";
-				break;
 			case 2: 
-				type = "ninjaEnemy";
-				break;*/
+				type = "Golem";
+				break;
 		}
 
 		
