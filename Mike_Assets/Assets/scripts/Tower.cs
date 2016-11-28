@@ -8,16 +8,21 @@ public class Tower : MonoBehaviour {
 	public float turnSpeed = 5.0f;
 	public float targetRange = 10.0f;
 	private List<GameObject> enemysInRange = new List<GameObject>();
+	public GameObject missile;
+	public float rateOfFire = 0.5f;
+	private bool allowShoot = true;
 
 
 
 
 	void OnTriggerEnter2D(Collider2D col){
 		GameObject currentMonster;
-		if (col.gameObject.name == "greenPlane") {
-			print("Enter");
-			currentEnemy = col.gameObject.transform;
+		if (col.gameObject.name == "Golem") {
+			//print("Enter");
 			currentMonster = col.gameObject;
+			if (currentEnemy == null && enemysInRange.Count == 0) {
+				currentEnemy = col.gameObject.transform;
+			}
 			enemysInRange.Add(currentMonster);
 		}
 	}
@@ -25,11 +30,16 @@ public class Tower : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D col){
 		GameObject currentMonster;
-		if (col.gameObject.name == "greenPlane") {
-			print("Exit");
-			currentEnemy = null;
+		if (col.gameObject.name == "Golem") {
+			//print("Exit");
 			currentMonster = col.gameObject;
 			enemysInRange.Remove (currentMonster);
+			if (enemysInRange.Count == 0) {
+				currentEnemy = null;
+			} 
+			else {
+				currentEnemy = enemysInRange [0].transform;
+			}
 		}
 	}
 
@@ -42,9 +52,18 @@ public class Tower : MonoBehaviour {
 			float angle = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 			Quaternion targetRotation = Quaternion.AngleAxis (angle, Vector3.forward);
 			transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+			if (allowShoot) {
+				StartCoroutine (fireProjectile ());
+			} 
 		}
-
 	}
 
-
+	IEnumerator fireProjectile(){
+		allowShoot = false;
+		GameObject bullet;
+		bullet = (Instantiate (missile, transform.position, transform.rotation)) as GameObject;
+		bullet.GetComponent<Projectile> ().TargetPosition = currentEnemy.transform.position;
+		yield return new WaitForSeconds (rateOfFire);
+		allowShoot = true;
+	}
 }
