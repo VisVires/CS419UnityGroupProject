@@ -91,7 +91,7 @@ public class GameManager : Singleton<GameManager>
 		switch(monsterIndex)
 		{
 			case 0:
-				type = "greenPlane";
+				type = "Golem";
 				break;
 			/*case 1: 
 				type = "grayPlane";

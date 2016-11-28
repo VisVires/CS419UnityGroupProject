@@ -1545,6 +1545,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefabs:
-  - {fileID: 1000012877782408, guid: 4beb8e1484fa5644ea74ffe85424af83, type: 2}
-  - {fileID: 1000011066876004, guid: 691dee4e51500ee49a538e0dbd7e7845, type: 2}
-  - {fileID: 1000010746041750, guid: 920e0995df25e484aa89c961dda01650, type: 2}
+  - {fileID: 1000012130808372, guid: 6606514e85e0a0a458e2ef515ce1eaab, type: 2}
