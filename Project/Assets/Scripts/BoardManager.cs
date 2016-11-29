@@ -37,10 +37,6 @@ namespace Completed
 		//holds maximum x and y coordinates
 		private Point mapSize;
 
-		//Camera Movement Variable
-		[SerializeField]
-		private CameraMovement cameraMovement;
-
 		//create spawn portal object
 		public Portal SpawnPortal { get; set; }
 
