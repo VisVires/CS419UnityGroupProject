@@ -29,7 +29,8 @@ public class Monster : MonoBehaviour
         myAnimaator = GetComponent<Animator>();
         SetPath(Completed.BoardManager.Instance.Path);
 	}
-	
+
+
 	private void Move()
 	{
 		transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);

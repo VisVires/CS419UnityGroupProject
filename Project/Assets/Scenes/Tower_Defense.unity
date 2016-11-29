@@ -752,7 +752,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2117807993}
-        m_MethodName: StartWave
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1519,6 +1519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527d6bf810c193f4d9fa7ebc78d708b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frequency: 2
   currencyTxt: {fileID: 2067196974}
 --- !u!4 &2117807994
 Transform:
