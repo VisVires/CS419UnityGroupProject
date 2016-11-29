@@ -6,6 +6,7 @@ public class layoutmanager : Singleton<layoutmanager>
 {
 	[SerializeField]
 	private GameObject[] tilePrefabs;
+
 	
 	[SerializeField]
 	private CameraMovement cameraMovement;

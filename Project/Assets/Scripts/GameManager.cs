@@ -7,7 +7,8 @@ public class GameManager : Singleton<GameManager>
 	public TowerButton ClickedBtn { get; set; }
 
 	private int currency;
-	
+	public float frequency = 10.0f;
+	private bool newMonster = true;
 	[SerializeField]
 	private Text currencyTxt;
 	
@@ -44,6 +45,9 @@ public class GameManager : Singleton<GameManager>
 	void Update () 
 	{
 		HandleEscape();
+		if (newMonster) {
+			StartCoroutine (SpawnWave());
+		}
 	}
 	
 	public void PickTower(TowerButton towerButton)
@@ -75,36 +79,39 @@ public class GameManager : Singleton<GameManager>
 		}
 	}
 
-	public void StartWave()
+	/*public void StartWave()
 	{
 			StartCoroutine(SpawnWave());
-	}	
+	}*/	
 	
 	
+
 	private IEnumerator SpawnWave()
 	{
+		newMonster = false;	
 		Completed.BoardManager.Instance.GeneratePath();
-		int monsterIndex = Random.Range(0, 0);
-		
+		int monsterIndex = Random.Range(0, 3);
+
 		string type = string.Empty;
 		//print (monsterIndex);
 		switch(monsterIndex)
 		{
-			case 0:
-				type = "greenPlane";
-				break;
-			/*case 1: 
-				type = "grayPlane";
-				break;
-			case 2: 
-				type = "ninjaEnemy";
-				break;*/
+		case 0:
+			type = "Ninja";
+			break;
+		case 1: 
+			type = "Zombie";
+			break;
+		case 2: 
+			type = "Golem";
+			break;
 		}
 
 		
 		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
 		monster.Spawn();
-		yield return new WaitForSeconds(2.5f);
+		yield return new WaitForSeconds(frequency);
+		newMonster = true;
 	}
 	
 }

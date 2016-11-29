@@ -17,19 +17,25 @@ namespace Completed
 		private int mapY;
 
         float chanceCellIsOnPath = 0.42f;
-        //public GameObject[] floorTiles;
-        public GameObject[] obstacleTiles;
-        public GameObject[] wallObstacles;
+		private bool grass = true;
+
+		[SerializeField]
+		private GameObject[] grassObstacleTiles;
+
+		[SerializeField]
+		private GameObject[] desertObstacleTiles;
+
+		[SerializeField]
+		private GameObject[] grassWallObstacles;
+
+		[SerializeField]
+		private GameObject[] desertWallObstacles;
 
 		//creat dictionary of TileScript each with the key coordinates 
 		public Dictionary<Point, TileScript> Tiles { get; set; }
 
 		//holds maximum x and y coordinates
 		private Point mapSize;
-
-		//Camera Movement Variable
-		[SerializeField]
-		private CameraMovement cameraMovement;
 
 		//create spawn portal object
 		public Portal SpawnPortal { get; set; }
@@ -51,14 +57,18 @@ namespace Completed
 		[SerializeField]
 		private Transform map;
 
-		//prefabs of tiles for floor
+		//prefabs of  desert tiles for floor
 		[SerializeField]
-		private GameObject[] tilePrefabs;
+		private GameObject[] grassFloorPrefabs;
+
+		[SerializeField]
+		private GameObject[] floorPrefabs;
+
 
 		//returns width of the box of a sprite
 		public float TileSize
 		{
-			get {return tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
+			get {return floorPrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
 		}
 
 		private Stack<Node> path;
@@ -342,14 +352,21 @@ namespace Completed
 			//cast tile to tileIndex
 			int tileIndex = int.Parse(tileType);
 
+			TileScript newTile;
+
 			//create new tile as tileIndex
-			TileScript newTile = Instantiate(tilePrefabs[tileIndex]).GetComponent<TileScript>();
+			if (grass) {
+				Debug.Log ("grass");
+				newTile = Instantiate (grassFloorPrefabs [tileIndex]).GetComponent<TileScript> ();
+			} else {
+				newTile = Instantiate (floorPrefabs [tileIndex]).GetComponent<TileScript> ();
+			}
 			Point next = new Point (x, y);
 			Vector3 worldSpot = new Vector3 ((worldStart.x + (TileSize * x)), (worldStart.y - (TileSize * y)),0);
 
 			//set position of tile at point x,y in the world at the vector3 position (worldstart + x, worldstart + y, 0), making the Transform map the parent
 			newTile.Setup (next, worldSpot, map);		
-			if (tileIndex == (tilePrefabs.Length - 1)) {
+			if (tileIndex == (floorPrefabs.Length - 1)) {
 				edgeCells.Add (next);
 			}
 		}
@@ -397,8 +414,13 @@ namespace Completed
 				{
 					if(deadCells[x] != ending && deadCells[x] != spawn && Tiles[deadCells[x]].Walkable == true){
 						if(!genSpawn(deadCells[x]) && !genEnding(deadCells[x])){ 
+							GameObject tileChoice;
 							//place random obstacle tile
-							GameObject tileChoice = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
+							if (grass) {
+								tileChoice = grassObstacleTiles [Random.Range (0, grassObstacleTiles.Length)];
+							} else {
+								tileChoice = desertObstacleTiles [Random.Range (0, desertObstacleTiles.Length)];
+							}
 							Instantiate (tileChoice, Tiles [deadCells [x]].WorldPosition, Quaternion.identity);
 							//set tile as unwalkable
 							Tiles [deadCells[x]].Walkable = false;
@@ -416,7 +438,12 @@ namespace Completed
 			for (int x = 0; x < edgeCells.Count; x++) {
 				//if the tiles object contains the point as key
 				if (Tiles.ContainsKey (edgeCells[x])) {
-					GameObject tileChoice = wallObstacles[Random.Range (0, wallObstacles.Length)];
+					GameObject tileChoice;
+					if (grass){
+						tileChoice = grassWallObstacles[Random.Range (0, grassWallObstacles.Length)];
+					} else {
+						tileChoice = desertWallObstacles[Random.Range (0, desertWallObstacles.Length)];
+					}
 					Instantiate (tileChoice, Tiles [edgeCells[x]].WorldPosition, Quaternion.identity);
 					Tiles [edgeCells[x]].Walkable = false;
 					Tiles [edgeCells[x]].IsEmpty = false;
@@ -424,24 +451,36 @@ namespace Completed
 			}
 		}
 
-
+		//generate beginning landing
 		bool genSpawn(Point pos){
 
 			return((checkRange(pos.x, spawn.x - 5, spawn.x + 5) && checkRange(pos.y, spawn.y - 5, spawn.y + 5)));
 		}
 
-
+		//generate ending landing
 		bool genEnding(Point pos){
 
 			return((checkRange(pos.x, ending.x - 5, ending.x + 5) && checkRange(pos.y, ending.y - 5, ending.y + 5)));	
 		} 
 
-
+		//set range
 		bool checkRange(int pos, int bottom, int top){
 
 			return(pos >= bottom && pos <= top);
 		}
 
+		//select grass or desert level
+		void selectLevelType(){
+
+			int levelType = Random.Range(0, 2);
+			Debug.Log (levelType);
+			if (levelType == 0) {
+				grass = true;
+			} else {
+				grass = false;
+			}
+
+		}
 
 
 		//call A* Algorithm for path
@@ -452,11 +491,14 @@ namespace Completed
 
 		void Start(){
 
+			//randomly choose whether grass or desert
+			selectLevelType();
 			//create randomized board text file
 			createTextFile ();
 			//create level from text file file
 			CreateLevel ();
 
+			//Generate path and board
 			while (path == null) {
 				//run game of life simulations
 				GameOfLifeSim ();
