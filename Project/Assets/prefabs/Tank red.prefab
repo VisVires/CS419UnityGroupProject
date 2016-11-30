@@ -149,7 +149,7 @@ MonoBehaviour:
   turnSpeed: 5
   targetRange: 10
   missile: {fileID: 1000011638019956, guid: da107a1ff31654f8089b97767d238011, type: 2}
-  rateOfFire: 2
+  rateOfFire: 1
 --- !u!114 &114000012973117576
 MonoBehaviour:
   m_ObjectHideFlags: 1

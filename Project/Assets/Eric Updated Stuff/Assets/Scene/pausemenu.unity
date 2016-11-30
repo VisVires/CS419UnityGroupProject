@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54780e39c41f24fe384acf7417512b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  experience: 1200
 --- !u!114 &82639764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,7 +283,7 @@ GameObject:
   - 114: {fileID: 152151801}
   - 114: {fileID: 152151800}
   m_Layer: 5
-  m_Name: Continue
+  m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -913,7 +915,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Continue
+  m_Text: Resume
 --- !u!222 &1366018953
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -356,7 +356,7 @@ namespace Completed
 
 			//create new tile as tileIndex
 			if (grass) {
-				Debug.Log ("grass");
+				//Debug.Log ("grass");
 				newTile = Instantiate (grassFloorPrefabs [tileIndex]).GetComponent<TileScript> ();
 			} else {
 				newTile = Instantiate (floorPrefabs [tileIndex]).GetComponent<TileScript> ();
@@ -382,7 +382,7 @@ namespace Completed
 
 			//initialize portal
 			SpawnPortal = tmp.GetComponent<Portal>();
-			SpawnPortal.name = "teleporter-small_31";
+			SpawnPortal.name = "start";
 
 
 
@@ -473,7 +473,7 @@ namespace Completed
 		void selectLevelType(){
 
 			int levelType = Random.Range(0, 2);
-			Debug.Log (levelType);
+			//Debug.Log (levelType);
 			if (levelType == 0) {
 				grass = true;
 			} else {

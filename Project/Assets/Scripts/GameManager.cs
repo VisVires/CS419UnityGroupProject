@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
 	public TowerButton ClickedBtn { get; set; }
 
 	private int currency;
-	public float frequency = 10.0f;
+	public float secondsBetweenMonsters = 10.0f;
 	private bool newMonster = true;
 	[SerializeField]
 	private Text currencyTxt;
@@ -49,6 +49,7 @@ public class GameManager : Singleton<GameManager>
 	void Update () 
 	{
 		HandleEscape();
+
 		if (newMonster) {
 			StartCoroutine (SpawnWave());
 		}
@@ -120,21 +121,21 @@ public class GameManager : Singleton<GameManager>
 		//print (monsterIndex);
 		switch(monsterIndex)
 		{
-		case 0:
-			type = "Ninja";
-			break;
-		case 1: 
-			type = "Zombie";
-			break;
-		case 2: 
-			type = "Golem";
-			break;
+		    case 0:
+			    type = "Ninja";
+			    break;
+		    case 1: 
+			    type = "Zombie";
+			    break;
+		    case 2: 
+			    type = "Golem";
+			    break;
 		}
 
 		
 		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
 		monster.Spawn();
-		yield return new WaitForSeconds(frequency);
+		yield return new WaitForSeconds(secondsBetweenMonsters);
 		newMonster = true;
 	}
 	

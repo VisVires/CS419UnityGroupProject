@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
-  speed: 25
+  speed: 20
   explosion: {fileID: 1000011213620622, guid: a5efd160002bc48f6a9070d0d18aa5e3, type: 2}
 --- !u!212 &212000013770291058
 SpriteRenderer:

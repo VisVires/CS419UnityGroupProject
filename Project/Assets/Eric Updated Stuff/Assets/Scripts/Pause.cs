@@ -33,6 +33,8 @@ public class Pause : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
+
 		if (paused) {
 			PauseMenu.SetActive (true);
 			Time.timeScale = 0;
@@ -46,8 +48,6 @@ public class Pause : MonoBehaviour {
 	public void Resume() {
 
 		paused = false;
-		//Application.LoadLevel(1);
-		SceneManager.LoadScene("Tower_Defense");
 
 	}
 
@@ -96,6 +96,7 @@ public class Pause : MonoBehaviour {
 [Serializable]
 class PlayerData {
 
+	public float Health { get; set;}
 	public float Experience { get; set; }
 
 
