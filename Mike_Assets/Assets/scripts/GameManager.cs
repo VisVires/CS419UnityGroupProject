@@ -2,10 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameManager : Singleton<GameManager> 
+public class GameManager : Singleton<GameManager>
 {
 	public TowerButton ClickedBtn { get; set; }
-
+	
 	private int currency;
 	
 	[SerializeField]
@@ -31,7 +31,6 @@ public class GameManager : Singleton<GameManager>
 	private void Awake()
 	{
 		Pool = GetComponent<ObjectPool>();
-
 	}
 
 	// Use this for initialization
@@ -83,24 +82,20 @@ public class GameManager : Singleton<GameManager>
 	
 	private IEnumerator SpawnWave()
 	{
-		Completed.BoardManager.Instance.GeneratePath();
-		int monsterIndex = Random.Range(0, 3);
+		layoutmanager.Instance.GeneratePath();
+		int monsterIndex = Random.Range(0, 2);
 		
 		string type = string.Empty;
-		//print (monsterIndex);
+		
 		switch(monsterIndex)
 		{
 			case 0:
-				type = "Ninja";
+				type = "greenPlane";
 				break;
 			case 1: 
-				type = "Zombie";
-				break;
-			case 2: 
-				type = "Golem";
+				type = "grayPlane";
 				break;
 		}
-
 		
 		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
 		monster.Spawn();

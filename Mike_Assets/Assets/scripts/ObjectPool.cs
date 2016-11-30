@@ -5,7 +5,6 @@ public class ObjectPool : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject[] objectPrefabs;
-
 	
 	public GameObject GetObject(string type)
 	{

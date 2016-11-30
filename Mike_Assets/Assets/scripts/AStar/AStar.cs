@@ -12,7 +12,7 @@ public static class AStar
 	{
 		nodes = new Dictionary<Point, Node>();
 		
-		foreach (TileScript tile in Completed.BoardManager.Instance.Tiles.Values)
+		foreach (TileScript tile in layoutmanager.Instance.Tiles.Values)
 		{
 			nodes.Add(tile.GridPosition, new Node(tile));
 		}
@@ -47,7 +47,7 @@ public static class AStar
 				{
 					Point neighborPos = new Point(currentNode.GridPosition.x - x, currentNode.GridPosition.y - y);
 				
-					if(Completed.BoardManager.Instance.Inbounds(neighborPos) && Completed.BoardManager.Instance.Tiles[neighborPos].Walkable && neighborPos != currentNode.GridPosition)
+					if(layoutmanager.Instance.Inbounds(neighborPos) && layoutmanager.Instance.Tiles[neighborPos].Walkable && neighborPos != currentNode.GridPosition)
 					{
 						int gCost = 0;
 					
@@ -120,12 +120,12 @@ public static class AStar
 		
 		Point second = new Point(currentNode.GridPosition.x, currentNode.GridPosition.y + direction.y);
 		
-		if(Completed.BoardManager.Instance.Inbounds(first) && !Completed.BoardManager.Instance.Tiles[first].Walkable)
+		if(layoutmanager.Instance.Inbounds(first) && !layoutmanager.Instance.Tiles[first].Walkable)
 		{
 			return false;
 		}
 		
-		if(Completed.BoardManager.Instance.Inbounds(second) && !Completed.BoardManager.Instance.Tiles[second].Walkable)
+		if(layoutmanager.Instance.Inbounds(second) && !layoutmanager.Instance.Tiles[second].Walkable)
 		{
 			return false;
 		}

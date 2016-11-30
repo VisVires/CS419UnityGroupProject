@@ -34,3 +34,20 @@
 /Users/wgeorge/Documents/GitHub/CS419UnityGroupProject/Project/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/wgeorge/Documents/GitHub/CS419UnityGroupProject/Project/Temp/bin/Debug/Assembly-CSharp.dll.mdb
 /Users/wgeorge/Documents/GitHub/CS419UnityGroupProject/Project/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/obj/Debug/Assembly-CSharp.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/UnityEngine.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/UnityEditor.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Mono.Cecil.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Unity.DataContract.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/wgeorge/Desktop/SAVED REPO/Project/Temp/bin/Debug/Assembly-CSharp.dll
