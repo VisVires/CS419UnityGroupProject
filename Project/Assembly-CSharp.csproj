@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\TileScript.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\TowerButton.cs" />
+     <Compile Include="Assets\Scripts\endDestroy.cs" />
      <None Include="Assets\prefabs\Menu\Resources\Level.txt" />
      <None Include="Assets\prefabs\Menu\Unity UI\Fonts\Jupiter\LICENSE.txt" />
      <None Include="Assets\Eric Updated Stuff\Assets\prefabs\Menu\Unity UI\Materials\UI-Default-No-Alpha.shader" />
