@@ -22,6 +22,7 @@ GameObject:
   - 212: {fileID: 212000010124491322}
   - 95: {fileID: 95000011702305798}
   - 114: {fileID: 114000013910861858}
+  - 58: {fileID: 58000010235715440}
   m_Layer: 8
   m_Name: teleporter-small_31
   m_TagString: Untagged
@@ -42,6 +43,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!58 &58000010235715440
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011932625392}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.97
 --- !u!95 &95000011702305798
 Animator:
   serializedVersion: 3

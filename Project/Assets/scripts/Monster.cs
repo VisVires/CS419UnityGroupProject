@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+//user
 
 public class Monster : MonoBehaviour 
 {
-	
+	public int score;
+	public Text scoreText;
+
+	[SerializeField]
+	private Stat health;
+
 	[SerializeField]
 	private float speed;
 	
@@ -15,14 +22,67 @@ public class Monster : MonoBehaviour
     public Point GridPosition { get; set; }
 	
 	private Vector3 destination;
-	
+
+	void Awake() {
+		health.Initialize ();
+	}
+
+	void Start () {
+		//PlayerPrefs.GetInt("scorePref");
+		//score = PlayerPrefs.GetInt("scorePref");
+
+		PlayerPrefs.GetInt("scorePref");
+		score = PlayerPrefs.GetInt("scorePref");
+	}
+
 	private void Update()
 	{
 		Move();
 		Physics2D.IgnoreLayerCollision (8, 9);
-		transform.localScale = new Vector3 (4, 4, 0);
+		//transform.localScale = new Vector3 (4, 4, 0);
+
+		if (Input.GetKeyDown (KeyCode.W)) {
+			health.CurrentValue -= 10;
+			Debug.Log ("Current Health is " + health.CurrentValue);
+
+		}
+
+		if (Input.GetKeyDown (KeyCode.E)) {
+			health.CurrentValue += 10;
+			Debug.Log ("Current Health is " + health.CurrentValue);
+
+		}
+
+		if (scoreText.name == "scoreText") {
+			scoreText.text = "Score: " + score; 
+		}
+
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			PlayerPrefs.DeleteAll ();
+			score = 0;
+
+		}
+
+		//UpdateScore ();
+
+		AddScore ();
 	}
-	
+
+	public void AddScore() {
+		if (health.CurrentValue <= 0) {
+			score += 10;
+		}
+		if (health.CurrentValue == 0) {
+			health.CurrentValue = 1;
+		}
+	}
+
+	public void OnDestroy(){
+
+		PlayerPrefs.SetInt ("scorePref", score);
+		PlayerPrefs.Save ();
+	}
+
 	public void Spawn()
 	{
 		transform.position = Completed.BoardManager.Instance.SpawnPortal.transform.position;
