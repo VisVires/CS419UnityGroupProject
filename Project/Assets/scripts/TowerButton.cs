@@ -15,6 +15,13 @@ public class TowerButton : MonoBehaviour {
 	
 	[SerializeField]
 	private Text priceText;
+
+	[SerializeField]
+	private Stat health;
+
+	void Awake(){
+		health.Initialize ();
+	}
 	
 	public GameObject TowerPrefab
 	{

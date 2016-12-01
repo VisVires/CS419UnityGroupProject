@@ -5,20 +5,20 @@ using System.Collections.Generic;
 public class Monster : MonoBehaviour 
 {
 
+	public Transform currentEnemy{ get; set; }
 
-	public int score;
-	//public Text scoreText;
+	public Stat health;
 
-	[SerializeField]
-	private Stat health;
+
+
 
 	[SerializeField]
 	private float speed;
 	private float timeToDestroy = 1.5f;
 	private Stack<Node> path;
 	//private Rigidbody2D myRigidBody;
-	private Animator myAnimaator;
-	private bool isDead;
+	public Animator myAnimaator;
+	public bool isDead;
 	public Point GridPosition { get; set; }
 
 	private Vector3 destination;
@@ -28,13 +28,7 @@ public class Monster : MonoBehaviour
 	}
 
 	void Start () {
-		//isDead = false;
-		//PlayerPrefs.GetInt("scorePref");
-		//score = PlayerPrefs.GetInt("scorePref");
 
-		//PlayerPrefs.GetInt("scorePref");
-		//score = PlayerPrefs.GetInt("scorePref");
-		//myRigidBody = GetComponent<Rigidbody2D> ();
 	}
 
 	private void Update()
@@ -42,7 +36,6 @@ public class Monster : MonoBehaviour
 		
 		Move ();
 		Physics2D.IgnoreLayerCollision (8, 9);
-		//transform.localScale = new Vector3 (4, 4, 0);
 
 		if (Input.GetKeyDown (KeyCode.Z)) {
 			health.CurrentValue -= 10;
@@ -57,23 +50,13 @@ public class Monster : MonoBehaviour
 		}
 
 		Die ();
-		/*
-		if (scoreText.name == "scoreText") {
-			scoreText.text = "Score: " + score; 
-		}
+	
 
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			PlayerPrefs.DeleteAll ();
-			score = 0;
-
-		}
-		*/
-		//UpdateScore ();
-
-		//AddScore ();*/
 	}
 
 
+
+		
 	private void Die () {
 		if (health.CurrentValue <= 0) {
 			myAnimaator.SetTrigger ("isDead");
@@ -89,22 +72,7 @@ public class Monster : MonoBehaviour
 		Destroy (gameObject);
 	}
 
-	/*
-	public void AddScore() {
-		if (health.CurrentValue <= 0) {
-			score += 10;
-		}
-		if (health.CurrentValue == 0) {
-			health.CurrentValue = 1;
-		}
-	}
 
-	public void OnDestroy(){
-
-		PlayerPrefs.SetInt ("scorePref", score);
-		PlayerPrefs.Save ();
-	}
-	*/
 	public void Spawn()
 	{
 		transform.position = Completed.BoardManager.Instance.SpawnPortal.transform.position;
@@ -172,52 +140,5 @@ public class Monster : MonoBehaviour
 			}
 		}
 	}
-	/*[SerializeField]
-	private float speed;
-	
-	private Stack<Node> path;
-	
-	public Point GridPosition { get; set; }
-	
-	private Vector3 destination;
-	
-	private void Update()
-	{
-		Move();
-		Physics2D.IgnoreLayerCollision (8, 9);
-		transform.localScale = new Vector3 (4, 4, 0);
-	}
-	
-	public void Spawn()
-	{
-		transform.position = Completed.BoardManager.Instance.SpawnPortal.transform.position;
-		
-		SetPath(Completed.BoardManager.Instance.Path);
-	}
-	
-	private void Move()
-	{
-		transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-		
-		if (transform.position == destination)
-		{
-			if (path != null && path.Count > 0)
-			{
-				GridPosition = path.Peek().GridPosition;
-				destination = path.Pop().WorldPosition;
-			}
-		}
-	}
-	
-	private void SetPath(Stack<Node> newPath)
-	{
-		if(newPath != null)
-		{
-			this.path = newPath;
-			
-			GridPosition = path.Peek().GridPosition;
-			
-			destination = path.Pop().WorldPosition;
-		}
-	}*/
+
 }
