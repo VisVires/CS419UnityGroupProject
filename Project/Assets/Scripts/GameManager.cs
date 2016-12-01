@@ -87,33 +87,7 @@ public class GameManager : Singleton<GameManager>
 			StartCoroutine(SpawnWave());
 	}	
 
-	/*private IEnumerator SpawnWave()
-	{
-		newMonster = false;
-		Completed.BoardManager.Instance.GeneratePath();
-		int monsterIndex = Random.Range(0, 0);
 
-		string type = string.Empty;
-		//print (monsterIndex);
-		switch(monsterIndex)
-		{
-		case 0:
-			type = "greenPlane";
-			break;
-		case 1: 
-			type = "grayPlane";
-			break;
-		case 2: 
-			type = "ninjaEnemy";
-			break;
-		}
-
-
-		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
-		monster.Spawn();
-		yield return new WaitForSeconds(2.5f);
-		newMonster = true;
-	}*/
 
 	private IEnumerator SpawnWave()
 	{
@@ -125,9 +99,6 @@ public class GameManager : Singleton<GameManager>
 		Debug.Log (monsterIndex);
 		switch(monsterIndex)
 		{
-		//case 0:
-			//type = "greenPlane";
-			//break;
 
 			case 0:
 				type = "Ninja";
