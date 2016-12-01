@@ -14,11 +14,11 @@ public class Monster : MonoBehaviour
 
 	[SerializeField]
 	private float speed;
-
+	private float timeToDestroy = 1.5f;
 	private Stack<Node> path;
-
+	//private Rigidbody2D myRigidBody;
 	private Animator myAnimaator;
-
+	//private bool isDead;
 	public Point GridPosition { get; set; }
 
 	private Vector3 destination;
@@ -28,30 +28,35 @@ public class Monster : MonoBehaviour
 	}
 
 	void Start () {
+		//isDead = false;
 		//PlayerPrefs.GetInt("scorePref");
 		//score = PlayerPrefs.GetInt("scorePref");
 
 		//PlayerPrefs.GetInt("scorePref");
 		//score = PlayerPrefs.GetInt("scorePref");
+		//myRigidBody = GetComponent<Rigidbody2D> ();
 	}
 
 	private void Update()
 	{
-		Move();
+		
+		Move ();
 		Physics2D.IgnoreLayerCollision (8, 9);
 		//transform.localScale = new Vector3 (4, 4, 0);
 
-		if (Input.GetKeyDown (KeyCode.W)) {
+		if (Input.GetKeyDown (KeyCode.Z)) {
 			health.CurrentValue -= 10;
 			Debug.Log ("Current Health is " + health.CurrentValue);
 
 		}
 
-		if (Input.GetKeyDown (KeyCode.E)) {
+		if (Input.GetKeyDown (KeyCode.X)) {
 			health.CurrentValue += 10;
 			Debug.Log ("Current Health is " + health.CurrentValue);
 
 		}
+
+		Die ();
 		/*
 		if (scoreText.name == "scoreText") {
 			scoreText.text = "Score: " + score; 
@@ -67,6 +72,23 @@ public class Monster : MonoBehaviour
 
 		//AddScore ();*/
 	}
+
+
+	private void Die () {
+		if (health.CurrentValue <= 0) {
+			myAnimaator.SetTrigger ("isDead");
+			isDead = true;
+			StartCoroutine (destroyMonster());
+		}
+	}
+
+
+	IEnumerator destroyMonster(){
+
+		yield return new WaitForSeconds (timeToDestroy);
+		Destroy (gameObject);
+	}
+
 	/*
 	public void AddScore() {
 		if (health.CurrentValue <= 0) {

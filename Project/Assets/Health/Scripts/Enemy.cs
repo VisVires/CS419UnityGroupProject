@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour {
 
 	private bool facingRight;
 
-	private bool isDead;
+	//private bool isDead;
 
 
 	[SerializeField]
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Start(){
-		isDead = false;
+		//isDead = false;
 		facingRight = true;
 		myRigidBody = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
