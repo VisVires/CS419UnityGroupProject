@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour {
 
@@ -16,10 +17,20 @@ public class Timer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		myTimer -= Time.deltaTime;
+		myTimer -= Time.deltaTime; 
 		timerText.text = myTimer.ToString ("f0");
-		print (myTimer);
+		if (myTimer <= 1) {
+			myTimer = 0;
+			timerText.text = "Time's up!"; 
+		}
+
+		GoToNextLevel ();
 	}
 
+	private void GoToNextLevel() {
+		if (myTimer <= 0) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+		}
+	}
 
 }

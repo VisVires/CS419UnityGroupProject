@@ -12,8 +12,6 @@ public class GameManager : Singleton<GameManager>
 	private bool newMonster = true;
 	[SerializeField]
 	private Text currencyTxt;
-	//public Text timerText;
-	public float myTimer = 10;
 	public ObjectPool Pool { get; set; }
 
 	public int Currency
@@ -40,7 +38,6 @@ public class GameManager : Singleton<GameManager>
 	// Use this for initialization
 	void Start () 
 	{
-		//timerText = GetComponent<Text> ();
 		Currency = 420;
 	}
 
@@ -52,27 +49,9 @@ public class GameManager : Singleton<GameManager>
 		if (newMonster) {
 			StartCoroutine (SpawnWave());
 		}
-
-		/*myTimer -= Time.deltaTime; 
-		//Debug.Log ("Timer Text before To String: " + timerText.text);
-		//timerText.text = myTimer.ToString ("f0");
-		//Debug.Log ("timerText.text: " + timerText.text);
-		//Debug.Log ("My Timer: " + myTimer);
-		//Debug.Log ("My Timer To String; " + myTimer.ToString ("f0"));
-		//print (myTimer);
-		if (myTimer <= 1) {
-			//myTimer = 0;
-			//timerText.text = "Time's up!"; 
-		}*/
-
-		GoToNextLevel ();
+			
 	}
-
-	private void GoToNextLevel() {
-		if (myTimer <= 0) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
-		}
-	}
+		
 
 	public void PickTower(TowerButton towerButton)
 	{
