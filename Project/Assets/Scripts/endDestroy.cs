@@ -3,6 +3,14 @@ using System.Collections;
 
 public class endDestroy : MonoBehaviour {
 
+	[SerializeField]
+	private Stat health;
+
+	void Awake(){
+		health.Initialize ();
+	}
+
+
     void OnTriggerEnter2D(Collider2D col)
     {
         GameObject currentMonster;
