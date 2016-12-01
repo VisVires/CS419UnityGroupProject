@@ -18,7 +18,7 @@ public class Monster : MonoBehaviour
 	private Stack<Node> path;
 	//private Rigidbody2D myRigidBody;
 	private Animator myAnimaator;
-	//private bool isDead;
+	private bool isDead;
 	public Point GridPosition { get; set; }
 
 	private Vector3 destination;
