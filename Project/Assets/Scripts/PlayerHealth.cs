@@ -1,20 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
 
 	[SerializeField]
-	public Stat health;
+	private Stat health;
 	//[SerializeField]
 	//public float maxValue;
 
 
-	//[SerializeField]
-	//private float currentValue;
+	[SerializeField]
+	private Text healthText;
 
 	//initialize stat health
 	void Awake(){
 		health.Initialize ();
+	}
+
+	void Update(){
+
+		if (healthText.name == "healthText") {
+			healthText.text = "HEALTH:  " + health.CurrentValue; 
+			Debug.Log ("Current Health" + health.CurrentValue);
+		}
 	}
 
 

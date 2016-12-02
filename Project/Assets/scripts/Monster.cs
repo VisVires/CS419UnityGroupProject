@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class Monster : MonoBehaviour 
 {
 
-	//private int score;
-	//private Text scoreText;
-
 
 	public Transform currentEnemy{ get; set; }
 
