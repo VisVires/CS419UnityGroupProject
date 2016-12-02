@@ -7,34 +7,39 @@ public class CameraMovement : MonoBehaviour
 		[SerializeField]
 		private float cameraSpeed = 0;
 
-
-		//zoom script variables
-		public float zoomSpeed = 1;
-		public float targetOrtho;
-		public float smoothSpeed = 2.0f;
-		public float minOrtho = 1.0f;
-		public float maxOrtho = 20.0f;
 		
+		public float zoomSize=5;
 		
-		// Use this for initialization
-		void Start () {
-			targetOrtho = Camera.main.orthographicSize;
-		}
 		
 		// Update is called once per frame
 		private void Update () 
 		{
+			
+			if(Input.GetKey(KeyCode.J))
+			{
+				if(zoomSize>2)
+					zoomSize -=1;
+			}
+			if(Input.GetKey(KeyCode.K))
+			{
+				if(zoomSize<42)
+					zoomSize +=1;
+			}
+			
+			
+			if(Input.GetAxis("Mouse ScrollWheel")>0)
+			{
+				if(zoomSize>2)
+					zoomSize -=1;
+			}
+			if(Input.GetAxis("Mouse ScrollWheel")<0)
+			{
+				if(zoomSize<42)
+					zoomSize +=1;
+			}
+			GetComponent<Camera> ().orthographicSize=zoomSize;
+			
 			GetInput();
-			
-			float scroll = Input.GetAxis ("Mouse ScrollWheel");
-			if (scroll != 0.0f) {
-				targetOrtho -= scroll * zoomSpeed;
-				targetOrtho = Mathf.Clamp (targetOrtho, minOrtho, maxOrtho);
-         }
-         
-			Camera.main.orthographicSize = Mathf.MoveTowards (Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);
-			
-			
 		}
 
 
