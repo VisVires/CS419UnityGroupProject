@@ -18,7 +18,7 @@ public class scoreManager : MonoBehaviour {
 	void Update () {
 
 		if (scoreText.name == "scoreText") {
-			scoreText.text = "SCORE: " + score; 
+			scoreText.text = "SCORE:  " + score; 
 		}
 
 		if (Input.GetKeyDown (KeyCode.Q)) {

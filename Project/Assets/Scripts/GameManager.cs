@@ -7,7 +7,8 @@ public class GameManager : Singleton<GameManager>
 {
 	public TowerButton ClickedBtn { get; set; }
 
-	private int currency;
+	[SerializeField]
+	public int currency;
 	public float secondsBetweenMonsters = 10.0f;
 	private bool newMonster = true;
 	[SerializeField]
@@ -24,7 +25,13 @@ public class GameManager : Singleton<GameManager>
 		set
 		{
 			this.currency = value;
-			this.currencyTxt.text = "<color=lime>$</color>" + value.ToString();
+			//this.currencyTxt.text = "<color=lime>$</color> " + value.ToString();
+			if (value <= 50) {
+				this.currencyTxt.text = "<color=red>$</color> " + value.ToString();
+				this.currencyTxt.color = new Color (1, 0, 0, 1);
+			} else {
+				this.currencyTxt.text = "<color=lime>$</color> " + value.ToString();
+			}
 		}
 	}
 

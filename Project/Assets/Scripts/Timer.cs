@@ -18,10 +18,14 @@ public class Timer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		myTimer -= Time.deltaTime; 
-		timerText.text = myTimer.ToString ("f0");
+		int intTime = (int)myTimer;
+		timerText.text = "TIME REMAINING  " + intTime;
 		if (myTimer <= 1) {
 			myTimer = 0;
-			timerText.text = "Time's up!"; 
+			timerText.text = "LEVEL COMPLETED";
+		}
+		if (myTimer <= 30) {
+			timerText.color = new Color(1,0,0,1);
 		}
 
 		GoToNextLevel ();

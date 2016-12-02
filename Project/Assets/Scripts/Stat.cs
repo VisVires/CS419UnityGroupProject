@@ -10,7 +10,7 @@ public class Stat {
 	private Bar bar; 
 
 	[SerializeField]
-	private float maxValue;
+	public float maxValue;
 
 	[SerializeField]
 	private float currentValue;

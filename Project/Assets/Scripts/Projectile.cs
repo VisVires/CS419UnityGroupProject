@@ -18,19 +18,21 @@ public class Projectile : MonoBehaviour {
 	}
 		
 	void OnCollisionEnter2D(Collision2D col){
-		GameObject explode = Instantiate (explosion, transform.position, Quaternion.identity) as GameObject;
-		Debug.Log ("EXPLODE");
-		Monster currentMonster;
+		GameObject explode = null;
 		if (col.gameObject.name == "Golem" || col.gameObject.name == "Ninja" || col.gameObject.name == "Zombie")
 		{
+			explode = Instantiate (explosion, transform.position, Quaternion.identity) as GameObject;
+			//Debug.Log ("EXPLODE");
+			Monster currentMonster;
 			//print("Enter");
 			currentMonster = col.gameObject.GetComponent<Monster>();
 			currentMonster.health.CurrentValue -= 10;
-			Debug.Log ("hit");
-
 		}
+
 		Destroy (gameObject);
-		Destroy (explode, 1);
+		if (explode) {
+			Destroy (explode, 1);
+		}
 	}
 
 
