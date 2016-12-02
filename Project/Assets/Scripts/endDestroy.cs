@@ -3,11 +3,13 @@ using System.Collections;
 
 public class endDestroy : MonoBehaviour {
 
-	[SerializeField]
-	private Stat health;
+	//[SerializeField]
+	//private Stat health;
+	private PlayerHealth health; 
 
 	void Awake(){
-		health.Initialize ();
+		//health.Initialize ();
+		health = GameObject.FindGameObjectWithTag("health").GetComponent<PlayerHealth>();
 	}
 
 
@@ -19,6 +21,8 @@ public class endDestroy : MonoBehaviour {
             Debug.Log("Enter");
             currentMonster = col.gameObject;
 			Destroy (currentMonster);
+			health.RemoveHealth (1);
         }
     }
+
 }

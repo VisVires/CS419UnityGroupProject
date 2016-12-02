@@ -11,6 +11,7 @@ public class Tower : MonoBehaviour {
 	public GameObject missile;
 	public float rateOfFire = 0.5f;
 	private bool allowShoot = true;
+	//private bool triggered = false; 
 
 
 
@@ -19,6 +20,7 @@ public class Tower : MonoBehaviour {
 		if (col.gameObject.name == "Golem" || col.gameObject.name == "Ninja" || col.gameObject.name == "Zombie") {
 			//print("Enter");
 			currentMonster = col.gameObject;
+			//set current enemy to current object if there is none
 			if (currentEnemy == null && enemysInRange.Count == 0) {
 				currentEnemy = col.gameObject.transform;
 			}
@@ -33,6 +35,7 @@ public class Tower : MonoBehaviour {
 			//print("Exit");
 			currentMonster = col.gameObject;
 			enemysInRange.Remove (currentMonster);
+			
 			if (enemysInRange.Count == 0) {
 				currentEnemy = null;
 			} 
@@ -54,6 +57,10 @@ public class Tower : MonoBehaviour {
 			if (allowShoot) {
 				StartCoroutine (fireProjectile ());
 			} 
+		}
+
+		if (currentEnemy == null && enemysInRange.Count != 0) {
+			enemysInRange.Clear ();
 		}
 	}
 

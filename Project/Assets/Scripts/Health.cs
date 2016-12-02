@@ -6,6 +6,8 @@ public class Health : MonoBehaviour {
 	[SerializeField]
 	private Stat health;
 
+
+
 	public void RemoveHealth(float amount) {
 
 		health.CurrentValue -= amount;

@@ -6,36 +6,34 @@ using UnityEngine.UI;
 public class Monster : MonoBehaviour 
 {
 
-	private int score;
-	private Text scoreText;
+	//private int score;
+	//private Text scoreText;
 
 
 	public Transform currentEnemy{ get; set; }
 
 	public Stat health;
 
-	private scoreManager scoreObject;
-
+	private scoreManager score;
+	public int points = 10;
 
 	[SerializeField]
 	private float speed;
 	private float timeToDestroy = 1.5f;
 	private Stack<Node> path;
-	//private Rigidbody2D myRigidBody;
 	private Animator myAnimaator;
-	private bool isDead;
 	public Point GridPosition { get; set; }
+	private bool isDead = false;
 
 	private Vector3 destination;
 
 	void Awake() {
 		health.Initialize ();
+		score = GameObject.FindGameObjectWithTag ("score").GetComponent<scoreManager> ();
 	}
 
 	void Start () {
-		PlayerPrefs.GetInt("scorePref");
-		score = PlayerPrefs.GetInt("scorePref");
-		Debug.Log ("Score" + score);
+		
 	}
 
 	private void Update()
@@ -44,16 +42,6 @@ public class Monster : MonoBehaviour
 
 		Move ();
 		Physics2D.IgnoreLayerCollision (8, 9);
-
-	/*	if (scoreText.name == "scoreText") {
-			scoreText.text = "Score: " + score; 
-		}
-
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			PlayerPrefs.DeleteAll ();
-			score = 0;
-
-		}*/
 
 
 		if (Input.GetKeyDown (KeyCode.Z)) {
@@ -67,37 +55,21 @@ public class Monster : MonoBehaviour
 			Debug.Log ("Current Health is " + health.CurrentValue);
 
 		}
-			
-
-		Die ();
-	
-
-	}
-
-	public void OnDestroy(){
-
-		PlayerPrefs.SetInt ("scorePref", score);
-		PlayerPrefs.Save ();
-	}
-
-	void AddScore(){
-		if (health.CurrentValue <= 0) {
-			score += 10;
-		}
-		if (health.CurrentValue == 0) {
-			health.CurrentValue = 1;
+		if (!isDead) {
+			Die ();
 		}
 	}
+
+
+
 
 	private void Die () {
 		if (health.CurrentValue <= 0) {
 			myAnimaator.SetTrigger ("isDead");
 			isDead = true;
-			score += 10;
-			if (health.CurrentValue == 0) {
-				health.CurrentValue = 1;
-			}
-			Debug.Log ("New Score " + score);
+
+			score.AddScore (points);
+			//Debug.Log ("New Score " + score);
 			StartCoroutine (destroyMonster());
 		}
 	}

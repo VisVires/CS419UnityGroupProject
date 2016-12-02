@@ -18,7 +18,7 @@ public class scoreManager : MonoBehaviour {
 	void Update () {
 
 		if (scoreText.name == "scoreText") {
-			scoreText.text = "Score: " + score; 
+			scoreText.text = "SCORE: " + score; 
 		}
 
 		if (Input.GetKeyDown (KeyCode.Q)) {
@@ -27,6 +27,12 @@ public class scoreManager : MonoBehaviour {
 		
 		}
 	
+	}
+
+
+	public void AddScore(int points){
+		score += points;
+		Debug.Log (score);
 	}
 
 	public void OnDestroy(){
