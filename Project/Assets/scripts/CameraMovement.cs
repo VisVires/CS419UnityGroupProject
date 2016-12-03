@@ -4,15 +4,17 @@ using System.Collections;
 public class CameraMovement : MonoBehaviour 
 {
 
-		[SerializeField]
-		private float cameraSpeed = 0;
+	[SerializeField]
+	private float cameraSpeed = 0;
+	public float zoomSize=5;
 
-		
-		public float zoomSize=5;
-		
-		
-		// Update is called once per frame
-		private void Update () 
+    private void Start()
+    {
+        zoomSize += 40;
+    }
+
+    // Update is called once per frame
+    private void Update () 
 		{
 			
 			if(Input.GetKey(KeyCode.J))
