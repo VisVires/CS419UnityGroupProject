@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public static class AStar
 {
@@ -104,13 +105,16 @@ public static class AStar
 				break;
 			}
 		}
-		
+
+		if (!(finalPath.Contains (nodes[goal]))) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+		}
+
 		return finalPath;
-		
 		//debugging, remove later		
 		//GameObject.Find("Debugger").GetComponent<Debugger>().DebugPath(openList, closedList, finalPath);
 	}
-	
+		
 	
 	private static bool ConnectedDiag(Node currentNode, Node neighbor)
 	{
