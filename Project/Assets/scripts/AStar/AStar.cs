@@ -109,13 +109,12 @@ public static class AStar
 		if (!(finalPath.Contains (nodes[goal]))) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
-		
+			
 		return finalPath;
-		
 		//debugging, remove later		
 		//GameObject.Find("Debugger").GetComponent<Debugger>().DebugPath(openList, closedList, finalPath);
 	}
-	
+		
 	
 	private static bool ConnectedDiag(Node currentNode, Node neighbor)
 	{
