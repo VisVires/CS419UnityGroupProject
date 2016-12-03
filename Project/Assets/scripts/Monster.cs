@@ -36,22 +36,9 @@ public class Monster : MonoBehaviour
 	private void Update()
 	{
 
-
 		Move ();
 		Physics2D.IgnoreLayerCollision (8, 9);
 
-
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			health.CurrentValue -= 10;
-			Debug.Log ("Current Health is " + health.CurrentValue);
-
-		}
-
-		if (Input.GetKeyDown (KeyCode.X)) {
-			health.CurrentValue += 10;
-			Debug.Log ("Current Health is " + health.CurrentValue);
-
-		}
 		if (!isDead) {
 			Die ();
 		}
@@ -79,11 +66,12 @@ public class Monster : MonoBehaviour
 	}
 
 
-	public void Spawn()
+	public void Spawn(float speedMultiplier)
 	{
 		transform.position = Completed.BoardManager.Instance.SpawnPortal.transform.position;
 		myAnimaator = GetComponent<Animator>();
 		SetPath(Completed.BoardManager.Instance.Path);
+		this.speed = speed * speedMultiplier;
 	}
 
 

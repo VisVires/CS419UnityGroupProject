@@ -22,7 +22,6 @@ public class PlayerHealth : MonoBehaviour {
 
 		if (healthText.name == "healthText") {
 			healthText.text = "HEALTH:  " + health.CurrentValue; 
-			Debug.Log ("Current Health" + health.CurrentValue);
 		}
 	}
 

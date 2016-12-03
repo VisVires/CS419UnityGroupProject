@@ -34,6 +34,7 @@ public class Timer : MonoBehaviour {
 	private void GoToNextLevel() {
 		if (myTimer <= 0) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+			Debug.Log ("LEVEL " + SceneManager.GetActiveScene().buildIndex);
 		}
 	}
 

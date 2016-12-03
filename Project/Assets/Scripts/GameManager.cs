@@ -15,6 +15,9 @@ public class GameManager : Singleton<GameManager>
 	private Text currencyTxt;
 	public ObjectPool Pool { get; set; }
 
+
+	public float speedMultiplier = 1f;
+
 	public int Currency
 	{
 		get
@@ -120,7 +123,7 @@ public class GameManager : Singleton<GameManager>
 
 
 		Monster monster = Pool.GetObject(type).GetComponent<Monster>();
-		monster.Spawn();
+		monster.Spawn(speedMultiplier);
 		yield return new WaitForSeconds(secondsBetweenMonsters);
 		newMonster = true;
 	}

@@ -21,7 +21,7 @@ public class endDestroy : MonoBehaviour {
             Debug.Log("Enter");
             currentMonster = col.gameObject;
 			Destroy (currentMonster);
-			health.RemoveHealth (1);
+			health.RemoveHealth (10);
         }
     }
 
