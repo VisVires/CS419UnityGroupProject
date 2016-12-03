@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public static class AStar
 {
@@ -103,6 +104,10 @@ public static class AStar
 				}
 				break;
 			}
+		}
+
+		if (!(finalPath.Contains (nodes[goal]))) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
 		
 		return finalPath;

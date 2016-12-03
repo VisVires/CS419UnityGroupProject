@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour {
 
@@ -23,6 +24,8 @@ public class PlayerHealth : MonoBehaviour {
 		if (healthText.name == "healthText") {
 			healthText.text = "HEALTH:  " + health.CurrentValue; 
 		}
+
+		GameOver ();
 	}
 
 
@@ -30,6 +33,12 @@ public class PlayerHealth : MonoBehaviour {
 	public void RemoveHealth(int amount) {
 		health.CurrentValue -= amount;
 
+	}
+
+	public void GameOver(){
+		if (health.CurrentValue <= 0) {
+			SceneManager.LoadScene ("GameOverScreen");
+		}
 	}
 
 }

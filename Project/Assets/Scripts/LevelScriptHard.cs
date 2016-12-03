@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LevelScript : MonoBehaviour {
+public class LevelScriptHard : MonoBehaviour {
 
 	[SerializeField]
 	private Text levelText; 
@@ -15,10 +15,10 @@ public class LevelScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		level = SceneManager.GetActiveScene().buildIndex + 1;
-		level = level - 2;
+		level = level - 8;
 		levelText.text = "LEVEL " + level;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		StartCoroutine (DisplayLevelNumber ());
