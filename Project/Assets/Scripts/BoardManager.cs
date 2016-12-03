@@ -494,7 +494,7 @@ namespace Completed
 			//randomly choose whether grass or desert
 			selectLevelType();
 			//create randomized board text file
-			createTextFile ();
+			//createTextFile ();
 			//create level from text file file
 			CreateLevel ();
 

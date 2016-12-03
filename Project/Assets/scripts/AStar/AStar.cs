@@ -8,11 +8,8 @@ using UnityEngine.SceneManagement;
 public static class AStar
 {
 	private static Dictionary<Point, Node> nodes;
-	private static scoreManager score;
+	
 
-	private static void Awake(){
-		score = GameObject.FindGameObjectWithTag ("score").GetComponent<scoreManager> ();
-	}
 	
 	private static void CreateNodes()
 	{
@@ -112,7 +109,6 @@ public static class AStar
 		}
 
 		if (!(finalPath.Contains (nodes[goal]))) {
-			score.AddScore (10);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
 			
